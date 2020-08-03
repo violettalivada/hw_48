@@ -21,10 +21,10 @@ from webapp.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index_view, name='index'),
-    path('/<int:pk>/', product_view, name='product_view'),
-    path('add/', product_create_view, name='product_create'),
-    path('<int:pk>/update/', product_update_view, name='product_update'),
-    path('<int:pk>/delete/', product_delete_view, name='product_delete')
+    path('product/<int:pk>/', product_view, name='product_view'),
+    path('products/add/', product_create_view, name='product_create'),
+    path('product/<int:pk>/update/', product_update_view, name='product_update'),
+    path('product/<int:pk>/delete/', product_delete_view, name='product_delete')
 ]
 
 
