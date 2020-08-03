@@ -1,0 +1,12 @@
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+<form action="{{ action_url }}" method="{{ form_method }}">
+    {% csrf_token %}
+
+    {% for field in form %}
+        {% include 'partial/form_field.html' %}
+    {% endfor %}
+
+    <br/>
+    <input type="submit" value="{{ button_text|default:"Submit" }}"/>
+</form>
