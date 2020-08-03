@@ -4,13 +4,18 @@
 
 {% block menu %}
     <li><a href="{% url 'product_update' product.pk %}">Редактировать</a></li>
-    <li><a href="{% url 'product_delete' product.pk %}">Delete</a></li>
+    <li><a href="{% url 'product_delete' product.pk %}">Удалить</a></li>
 {% endblock %}
 
 {% block content %}
-    <h1> {{ product.name}}</h1>
-    <h3>{{ product.category }}</h3>
-    <p>{{ product.amount }} | {{ product.price }}</p>
-    <pre><p>{{ product.description }}</p></pre>
+    <div class="card text-center">
+  <div class="card-header">{{ product.get_category_display }}</div>
+  <div class="card-body">
+    <h5 class="card-title">{{ product.name }}</h5>
+    <p class="card-text">{{ product.description }}</p>
+    <p class="card-text">{{ product.price }}₽</p>
+  </div>
+  <div class="card-footer text-muted">Оставшееся количество: {{ product.amount }}</div>
+</div>
 
 {% endblock %}
