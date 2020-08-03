@@ -5,7 +5,11 @@ from webapp.forms import ProductForm
 
 
 def index_view(request):
-    data = Product.objects.all()
+    is_admin = request.GET.get('is_admin', None)
+    if is_admin:
+        data = Product.objects.all()
+    else:
+        data = Product.objects.order_by('name', 'category').exclude(amount=0)
     return render(request, 'index.html', context={'products': data})
 
 
