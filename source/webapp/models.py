@@ -22,7 +22,7 @@ class Product(models.Model):
                                 validators=(MinValueValidator(0),))
 
     def __str__(self):
-        return f'{self.name} - {self.amount}'
+        return f'{self.name}'
 
     class Meta:
         verbose_name = 'Товар'

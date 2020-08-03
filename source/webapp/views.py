@@ -75,3 +75,5 @@ def product_delete_view(request, pk):
         return redirect('index')
     else:
         return HttpResponseNotAllowed(permitted_methods=['GET', 'POST'])
+
+

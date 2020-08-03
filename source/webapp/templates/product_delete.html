@@ -8,10 +8,10 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Are you sure want to delete product "{{ product }}"?</h1>
+    <h1 class="title mt-5">Вы уверены, что хотите удалить данный товар: "{{ product }}"?</h1>
     <form method="POST" action="{% url "product_delete" product.pk %}" class="text-center">
         {% csrf_token %}
-        <p><input type="submit" value="Confirm"></p>
-        <p><a href="{% url "product_view" product.pk %}">Cancel</a></p>
+        <p><input class="btn btn-primary" type="submit" value="Да"></p>
+        <p><a class="btn btn-primary" href="{% url "product_view" product.pk %}" role="button">Нет</a></p>
     </form>
 {% endblock %}
