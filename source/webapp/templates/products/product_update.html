@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Update Product</h1>
+    <h1>Редактировать товар</h1>
     {% url "product_update" pk=product.pk as action_url %}
-    {% include 'partial/form.html' with button_text='Update' action_url=action_url form_method='post' %}
+    {% include 'partial/form.html' with button_text='Редактировать' action_url=action_url form_method='post' %}
 {% endblock %}

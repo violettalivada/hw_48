@@ -14,20 +14,24 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active my-2">
-        <a class="nav-link" href="{% url 'index' %}">На главную <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item my-2">
-        <a class="nav-link" href="{% url 'product_create' %}">Добавить товар</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0" action="#" method='get'>
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
-    </form>
-  </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active my-2">
+                <a class="nav-link" href="{% url 'index' %}">На главную <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item my-2">
+                <a class="nav-link" href="{% url 'product_create' %}">Добавить товар</a>
+            </li>
+        </ul>
+        {% block search %}
+            <div class="search-form">
+                <form class="form-inline my-2 my-lg-0" action="{% url 'index' %}" method="GET">
+                    {{ search_form.search }}
+                    <input class="form-control mr-sm-2" type="submit" value="Найти">
+                </form>
+            </div>
+        {% endblock %}
+    </div>
 </nav>
 <div class="container">
 
