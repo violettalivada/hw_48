@@ -23,4 +23,4 @@ class CartAddProductForm(forms.Form):
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['name', 'address', 'phone']
+        fields = ['user_name', 'user_phone', 'user_address']

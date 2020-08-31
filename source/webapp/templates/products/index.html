@@ -35,7 +35,7 @@
                     </a>
                     <hr/>
                     {% url 'product_add' product.pk as action_url %}
-                    {% include 'partial/form.html' with button_text='Добавить в корзину' action_url=action_url form_metod='post'%}
+                    {% include 'partial/form.html' with button_text='Добавить в корзину' action_url=action_url form_method='post' %}
                 </div>
             </div>
         </div>

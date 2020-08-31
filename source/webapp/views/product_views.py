@@ -21,13 +21,14 @@ class IndexView(ListView):
             search = form.cleaned_data['search']
             if search:
                 data = data.filter(Q(name__icontains=search)).order_by('name')
+                return data
         if not self.request.GET.get('is_admin', None):
             data = Product.objects.all().filter(amount__gt=0)
         return data
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = CartAddProductForm
+        context['form'] = CartAddProductForm()
         return context
 
 
@@ -40,7 +41,7 @@ class ProductView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = CartAddProductForm
+        context['form'] = CartAddProductForm()
         return context
 
 
