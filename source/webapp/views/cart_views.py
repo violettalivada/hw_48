@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect
-from django.views.generic import View, ListView
+from django.urls import reverse_lazy
+from django.views.generic import View, ListView, DeleteView
 
 from webapp.models import Cart, Product
 from webapp.forms import CartAddProductForm, OrderForm
@@ -48,3 +49,12 @@ class CartView(ListView):
             total += i.qty * i.products.price
         context['total'] = total
         return context
+
+
+class CartDeleteView(DeleteView):
+    template_name = 'cart/cart_view.html'
+    model = Cart
+    success_url = reverse_lazy('cart_view')
+
+    def get(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
