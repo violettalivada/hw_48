@@ -36,6 +36,9 @@ class Cart(models.Model):
     def __str__(self):
         return f'{self.qty}'
 
+    def get_total(self):
+        return self.qty * self.products.price
+
     class Meta:
         verbose_name = 'Корзина'
         verbose_name_plural = 'Корзины'
