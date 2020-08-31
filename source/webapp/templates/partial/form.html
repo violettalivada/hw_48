@@ -2,5 +2,5 @@
 <form action="{{ action_url }}" method="{{ form_method }}">
     {% csrf_token %}
     {{ form|crispy }}
-    <input type="submit" value="{{ button_text|default:"Submit" }}"/>
+    <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="{{ button_text|default:"Submit" }}"/>
 </form>

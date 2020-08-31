@@ -1,21 +1,34 @@
-from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
+from django.db.models import Q
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView, ListView
 from django.urls import reverse, reverse_lazy
 
-from .base_views import SearchView
 from webapp.models import Product
-from webapp.forms import ProductForm
+from webapp.forms import ProductForm, CartAddProductForm, SimpleSearchForm
 
 
-class IndexView(SearchView):
+class IndexView(ListView):
     model = Product
     template_name = 'products/index.html'
     ordering = ['category', 'name']
-    search_fields = ['name__icontains']
+    form_class = SimpleSearchForm
     paginate_by = 5
     context_object_name = 'products'
 
     def get_queryset(self):
-        return super().get_queryset().filter(amount__gt=0)
+        form = self.form_class(self.request.GET)
+        data = Product.objects.all()
+        if form.is_valid():
+            search = form.cleaned_data['search']
+            if search:
+                data = data.filter(Q(name__icontains=search)).order_by('name')
+        if not self.request.GET.get('is_admin', None):
+            data = Product.objects.all().filter(amount__gt=0)
+        return data
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CartAddProductForm
+        return context
 
 
 class ProductView(DetailView):
@@ -24,6 +37,11 @@ class ProductView(DetailView):
 
     def get_queryset(self):
         return super().get_queryset().filter(amount__gt=0)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CartAddProductForm
+        return context
 
 
 class ProductCreateView(CreateView):

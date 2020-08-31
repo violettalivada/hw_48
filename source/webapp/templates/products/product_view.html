@@ -27,6 +27,10 @@
                 </svg>
             </a>
         </div>
-        <div class="card-footer text-muted">Оставшееся количество: {{ product.amount }}шт</div>
+        <div class="card-footer text-muted"><p>Оставшееся количество: {{ product.amount }}шт</p>
+            <hr/>
+            {% url 'product_add' product.pk as action_url %}
+            {% include 'partial/form.html' with button_text='Добавить в корзину' action_url=action_url form_metod='post'%}
+        </div>
     </div>
 {% endblock %}

@@ -30,7 +30,7 @@ class Product(models.Model):
 
 
 class Cart(models.Model):
-    products = models.ForeignKey('webapp.Product', related_name='products', on_delete=models.CASCADE)
+    products = models.ForeignKey('webapp.Product', related_name='cart', on_delete=models.CASCADE)
     qty = models.IntegerField(verbose_name='Количество', validators=(MinValueValidator(0),))
 
     def __str__(self):
