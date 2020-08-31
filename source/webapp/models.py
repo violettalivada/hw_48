@@ -48,3 +48,9 @@ class Order(models.Model):
     user_address = models.CharField(max_length=300, null=False, blank=False, verbose_name='Адрес')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
 
+    def __str__(self):
+        return f'{self.user_name} | {self.user_phone} | {self.user_address}'
+
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
