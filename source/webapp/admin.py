@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product
+from .models import Product, Order,OrderProduct
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -9,4 +9,15 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
 
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['pk', 'user_name', 'user_phone', 'created_at']
+    list_filter = ['created_at']
+
+
+class OrderProductAdmin(admin.ModelAdmin):
+    list_display = ['product', 'qty']
+
+
 admin.site.register(Product, ProductAdmin)
+admin.site.register(Order, OrderAdmin)
+admin.site.register(OrderProduct, OrderProductAdmin)
