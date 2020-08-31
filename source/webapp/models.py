@@ -45,15 +45,22 @@ class Cart(models.Model):
 
 
 class Order(models.Model):
-    products = models.ManyToManyField('webapp.Product', related_name='order', blank=False)
     user_name = models.CharField(max_length=100, verbose_name='Имя', null=False, blank=False)
     user_phone = models.CharField(max_length=30, null=False, blank=False, verbose_name='Телефон')
     user_address = models.CharField(max_length=300, null=False, blank=False, verbose_name='Адрес')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
 
-    def __str__(self):
-        return f'{self.user_name} | {self.user_phone} | {self.user_address}'
-
     class Meta:
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
+
+
+class OrderProduct(models.Model):
+    product = models.ForeignKey('webapp.Product', related_name='product_orders', on_delete=models.CASCADE,
+                                verbose_name='Продукт')
+    order = models.ForeignKey('webapp.Order', related_name='order_products', on_delete=models.CASCADE,
+                              verbose_name='Заказ')
+    qty = models.IntegerField(verbose_name='Количество', validators=[MinValueValidator(0)])
+
+    def __str__(self):
+        return f'{self.order} | {self.product}'
