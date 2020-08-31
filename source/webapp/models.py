@@ -39,3 +39,12 @@ class Cart(models.Model):
     class Meta:
         verbose_name = 'Корзина'
         verbose_name_plural = 'Корзины'
+
+
+class Order(models.Model):
+    products = models.ManyToManyField('webapp.Product', related_name='order', blank=False)
+    user_name = models.CharField(max_length=100, verbose_name='Имя', null=False, blank=False)
+    user_phone = models.CharField(max_length=30, null=False, blank=False, verbose_name='Телефон')
+    user_address = models.CharField(max_length=300, null=False, blank=False, verbose_name='Адрес')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
+
