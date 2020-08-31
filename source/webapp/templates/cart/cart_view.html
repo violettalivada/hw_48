@@ -32,7 +32,7 @@
   {% endfor %}
         <tr><td></td><td></td><td></td><td>Итого</td><td>{{ total }} </td></tr>
         </tbody>
-    {% url '#' as action_url %}
+    {% url 'order_create' as action_url %}
         {% include 'partial/form.html' with button_text='Оформить заказ' action_url=action_url form_method='post' %}
     </table>
 {% endblock %}
