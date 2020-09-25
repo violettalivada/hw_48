@@ -26,4 +26,4 @@ class OrderCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('index')
+        return reverse('webapp:index')

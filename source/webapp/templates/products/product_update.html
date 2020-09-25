@@ -3,11 +3,11 @@
 
 
 {% block menu %}
-    <li><a href="{% url 'product_view' product.pk %}">View</a></li>
+    <li><a href="{% url 'webapp:product_view' product.pk %}">View</a></li>
 {% endblock %}
 
 {% block content %}
     <h1>Редактировать товар</h1>
-    {% url "product_update" pk=product.pk as action_url %}
+    {% url "webapp:product_update" pk=product.pk as action_url %}
     {% include 'partial/form.html' with button_text='Редактировать' action_url=action_url form_method='post' %}
 {% endblock %}

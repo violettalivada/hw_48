@@ -4,6 +4,6 @@
 
 {% block content %}
     <h1>Добавить товар</h1>
-        {% url "product_create" pk=product.pk as action_url %}
+        {% url "webapp:product_create" pk=product.pk as action_url %}
         {% include 'partial/form.html' with button_text='Добавить' action_url=action_url form_method='post' %}
 {% endblock %}

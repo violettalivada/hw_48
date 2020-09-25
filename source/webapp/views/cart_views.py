@@ -25,8 +25,8 @@ class CartAddProductView(View):
                 cart = Cart.objects.create(products=product, qty=qty)
                 cart.save()
             else:
-                redirect('index')
-        return redirect('index')
+                redirect('webapp:index')
+        return redirect('webapp:index')
 
 
 class CartView(ListView):
@@ -54,7 +54,7 @@ class CartView(ListView):
 class CartDeleteView(DeleteView):
     template_name = 'cart/cart_view.html'
     model = Cart
-    success_url = reverse_lazy('cart_view')
+    success_url = reverse_lazy('webapp:cart_view')
 
     def get(self, request, *args, **kwargs):
         return self.delete(request, *args, **kwargs)

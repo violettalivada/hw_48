@@ -4,14 +4,14 @@
 {% block title %}Delete{% endblock %}
 
 {% block menu %}
-    <li><a href="{% url 'product_view' product.pk %}">View</a></li>
+    <li><a href="{% url 'webapp:product_view' product.pk %}">View</a></li>
 {% endblock %}
 
 {% block content %}
     <h1 class="title mt-5">Вы уверены, что хотите удалить данный товар: "{{ product }}"?</h1>
-    <form method="POST" action="{% url "product_delete" product.pk %}" class="text-center">
+    <form method="POST" action="{% url "webapp:product_delete" product.pk %}" class="text-center">
         {% csrf_token %}
         <p><input class="btn btn-primary" type="submit" value="Да"></p>
-        <p><a class="btn btn-primary" href="{% url "product_view" product.pk %}" role="button">Нет</a></p>
+        <p><a class="btn btn-primary" href="{% url "webapp:product_view" product.pk %}" role="button">Нет</a></p>
     </form>
 {% endblock %}

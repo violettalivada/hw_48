@@ -1,19 +1,9 @@
-{% extends "base.html" %}
-
-{% block title %}View{% endblock %}
-
-{% block menu %}
-    <li><a href="{% url 'webapp:product_update' product.pk %}">Редактировать</a></li>
-    <li><a href="{% url 'webapp:product_delete' product.pk %}">Удалить</a></li>
-{% endblock %}
-
-{% block content %}
-    <div class="card text-center">
-        <div class="card-header">{{ product.get_category_display }}</div>
+<div class="card-deck">
+    <div class="card mb-2 text-center">
         <div class="card-body">
-            <h5 class="card-title">{{ product.name }}</h5>
-            <p class="card-text">{{ product.description }}</p>
-            <p class="card-text">{{ product.price }}₽</p>
+            <h5 class="card-title">Название: {{ product.name }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Категория: {{product.get_category_display}}</h6>
+            <p class="card-text">Цена: {{ product.price }}₽</p>
             <a href="{% url 'webapp:product_update' product.pk %}" class="card-link">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -26,11 +16,13 @@
                     <path fill-rule="evenodd" d="M11 11.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
                 </svg>
             </a>
-        </div>
-        <div class="card-footer text-muted"><p>Оставшееся количество: {{ product.amount }}шт</p>
-            <hr/>
-            {% url 'webapp:product_add' product.pk as action_url %}
-            {% include 'partial/form.html' with button_text='Добавить в корзину' action_url=action_url form_method='post'%}
+            <a href="{% url 'webapp:product_view' pk=product.pk %}" class="card-link">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bag-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M14 5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V5zM1 4v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4H1z"/>
+                    <path d="M8 1.5A2.5 2.5 0 0 0 5.5 4h-1a3.5 3.5 0 1 1 7 0h-1A2.5 2.5 0 0 0 8 1.5z"/>
+                    <path fill-rule="evenodd" d="M10.854 7.646a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 10.293l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                </svg>
+            </a>
         </div>
     </div>
-{% endblock %}
+</div>

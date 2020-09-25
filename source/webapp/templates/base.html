@@ -17,18 +17,18 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active my-2">
-                <a class="nav-link" href="{% url 'index' %}">На главную <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{% url 'webapp:index' %}">На главную <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item my-2">
-                <a class="nav-link" href="{% url 'product_create' %}">Добавить товар</a>
+                <a class="nav-link" href="{% url 'webapp:product_create' %}">Добавить товар</a>
             </li>
             <li class="nav-item my-2">
-                <a class="nav-link" href="{% url 'cart_view' %}">Корзина</a>
+                <a class="nav-link" href="{% url 'webapp:cart_view' %}">Корзина</a>
             </li>
         </ul>
         {% block search %}
             <div class="search-form">
-                <form class="form-inline my-2 my-lg-0" action="{% url 'index' %}" method="GET">
+                <form class="form-inline my-2 my-lg-0" action="{% url 'webapp:index' %}" method="GET">
                     {{ search_form.search }}
                     <input class="form-control mr-sm-2" type="submit" value="Найти">
                 </form>
