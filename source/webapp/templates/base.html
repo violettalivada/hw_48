@@ -19,12 +19,26 @@
             <li class="nav-item active my-2">
                 <a class="nav-link" href="{% url 'webapp:index' %}">На главную <span class="sr-only">(current)</span></a>
             </li>
+            {% if perms.webapp.add_product  %}
             <li class="nav-item my-2">
                 <a class="nav-link" href="{% url 'webapp:product_create' %}">Добавить товар</a>
             </li>
+            {% endif %}
             <li class="nav-item my-2">
                 <a class="nav-link" href="{% url 'webapp:cart_view' %}">Корзина</a>
             </li>
+             {% if request.user.is_authenticated %}
+            <li class="nav-item my-2">
+                <a class="nav-link" href="{% url 'accounts:logout' %}?next={{ request.get_full_path }}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item my-2">
+                <a class="nav-link" href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Login</a>
+            </li>
+            <li class="nav-item my-2">
+                <a class="nav-link" href="{% url 'accounts:create' %}?next={{ request.get_full_path }}">Sign in</a>
+            </li>
+        {% endif %}
         </ul>
         {% block search %}
             <div class="search-form">

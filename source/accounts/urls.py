@@ -5,4 +5,8 @@ from accounts.views import *
 
 app_name = 'accounts'
 
-urlpatterns = []
+urlpatterns = [
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('create/', RegisterView.as_view(), name='create'),
+]
