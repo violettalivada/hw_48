@@ -1,4 +1,5 @@
-from django.urls import reverse
+from django.shortcuts import redirect
+from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView
 
 from webapp.forms import OrderForm
@@ -8,22 +9,25 @@ from webapp.models import *
 class OrderCreateView(CreateView):
     model = Order
     form_class = OrderForm
+    success_url = reverse_lazy('webapp:index')
 
     def form_valid(self, form):
-        name = form.cleaned_data['user_name']
-        phone = form.cleaned_data['user_phone']
-        address = form.cleaned_data['user_address']
-        order = Order.objects.create(user_name=name, user_phone=phone, user_address=address)
-        cart = Cart.objects.all()
-        for i in cart:
-            product = Product.objects.get(pk=i.products.pk)
-            OrderProduct.objects.create(product=i.products,
-                                        order=order,
-                                        qty=i.qty)
-            product.amount = product.amount-i.qty
-            product.save()
-        cart.delete()
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        order = self.object
+        cart_products = Cart.objects.all()
+        products = []
+        order_products = []
+        for item in cart_products:
+            product = item.products
+            qty = item.qty
+            product.amount -= qty
+            products.append(product)
+            order_product = OrderProduct(order=order, product=product, qty=qty)
+            order_products.append(order_product)
+        OrderProduct.objects.bulk_create(order_products)
+        Product.objects.bulk_update(products, ('amount',))
+        cart_products.delete()
+        return response
 
-    def get_success_url(self):
-        return reverse('webapp:index')
+    def form_invalid(self, form):
+        return redirect('webapp:cart_view')

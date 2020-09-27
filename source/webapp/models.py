@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+from django.db.models import Sum, F, ExpressionWrapper as E
 
 
 DEFAULT_CATEGORY = 'other'
@@ -34,10 +35,25 @@ class Cart(models.Model):
     qty = models.IntegerField(verbose_name='Количество', validators=(MinValueValidator(0),))
 
     def __str__(self):
-        return f'{self.qty}'
+        return f'{self.products.name}-{self.qty}'
 
-    def get_total(self):
-        return self.qty * self.products.price
+    @classmethod
+    def get_with_total(cls):
+        total_output_field = models.DecimalField(max_digits=10, decimal_places=2)
+        total_expr = E(F('qty') * F('products__price'), output_field=total_output_field)
+        return cls.objects.annotate(total=total_expr)
+
+    @classmethod
+    def get_with_product(cls):
+        return cls.get_with_total().select_related('products')
+
+    @classmethod
+    def get_cart_total(cls, ids=None):
+        cart_products = cls.get_with_total()
+        if ids is not None:
+            cart_products = cart_products.filter(pk__in=ids)
+        total = cart_products.aggregate(cart_total=Sum('total'))
+        return total['cart_total']
 
     class Meta:
         verbose_name = 'Корзина'
