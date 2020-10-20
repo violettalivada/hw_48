@@ -15,11 +15,8 @@ class RegisterView(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        if settings.ACTIVATE_USERS_EMAIL:
-            return redirect('webapp:index')
-        else:
-            login(self.request, user)
-            return redirect(self.get_success_url())
+        login(self.request, user)
+        return redirect(self.get_success_url())
 
     def get_success_url(self):
         next_url = self.request.GET.get('next')
